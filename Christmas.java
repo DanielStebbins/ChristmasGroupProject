@@ -5,12 +5,11 @@ public class Christmas
 {
 	public static void main(String[]args)
 	{
+		Scanner reader = new Scanner(System.in);
+		Scanner fileReader = new Scanner(new File "Gifts.txt");
+		double date;
 
-	Reader Scanner = new Scanner(System.in);
-	double date;
-
-	System.out.println("What is the date?");
-	date = reader.nextln();
-
+		System.out.println("What is the date?");
+		date = reader.nextLine();
 	}
 }
