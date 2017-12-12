@@ -1,4 +1,4 @@
-Public class Kids
+public class Kids
 {
 	String name = "";
 	String behavior = "";
