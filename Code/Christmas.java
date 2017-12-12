@@ -14,8 +14,9 @@ public class Christmas
 		while(fileReader.hasNextLine())
 		{
 			String name = fileReader.nextLine();
-			Gift  = new Gift(name, fileReader.nextInt(), fileReader.nextInt(), fileReader.nextInt(), fileReader.nextInt());
+			gifts.add(new Gift(fileReader.nextLine(), fileReader.nextInt(), fileReader.nextInt(), fileReader.nextInt(), fileReader.nextDouble()));
 		}
+    
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
  	}
