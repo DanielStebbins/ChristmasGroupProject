@@ -5,6 +5,7 @@ public class Christmas
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		int days = 0;
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
 		ArrayList<Kids> kids = new ArrayList<Kids>();
 		Scanner reader = new Scanner(System.in);
