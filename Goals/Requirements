@@ -1,6 +1,8 @@
 Make a program that matches gifts to kids based on age, naughty or nice, and cost off of a budget.
 Gifts - name, min age, max age, cost, days for elves to make (hocky stick = 5 days).
-Inputs - files, date, budget.
+Inputs - files, days until Christmas, budget.
 One gift per child.
 All nice kids and naughty under 14 get gifts.
 Output - list to a text file, name and a present, how much money total and how much is left over.
+Number of days until Christmas.  5 days until Christmas, all gifts 5 days and bellow are eligible.
+Maximize Budget, keep gifts similar in quality.
