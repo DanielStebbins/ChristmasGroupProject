@@ -10,6 +10,7 @@ public class Christmas
 		Scanner reader = new Scanner(System.in);
 		Scanner fileReader = new Scanner(new File("Gifts.txt"));
 		int daysTillChrist;
+		double budget = 0.00;
 
 		while(fileReader.hasNextLine())
 		{
@@ -19,5 +20,8 @@ public class Christmas
     
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
+		
+		System.out.println ("What's your budget?")
+		budget = reader.NextDouble();
  	}
 }
