@@ -1,6 +1,6 @@
 public class Gift
 {
-	int lowAge, highAge, inStock;
+	int lowAge, highAge, giftTime;
 	double price;
 	String name;
 
@@ -8,7 +8,7 @@ public class Gift
 	{
 		lowAge = a1;
 		highAge = a2;
-		inStock = s;
+		giftTime = s;
 		price = p;
 		name = n;
 	}
@@ -25,7 +25,7 @@ public class Gift
 
 	public int getInStock()
 	{
-		return inStock;
+		return giftTime;
 	}
 
 	public void setInStock(int s)
