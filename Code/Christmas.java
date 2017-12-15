@@ -13,6 +13,8 @@ public class Christmas
 		Scanner fileReader2 = new Scanner(new File("Kids.txt"));
 		int daysTillChrist;
 		int counter = 0;
+		double budget = 0.00;
+		double amountPerPerson = 0.00;
 
 		while(fileReader1.hasNextLine())
 		{
@@ -50,5 +52,19 @@ public class Christmas
 
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
+		
+		System.out.println("What's your budget?");
+		budget = reader.nextDouble();
+		
+		if (age >= 15 && nice = false)
+			kids.remove(name);
+
+		amountPerKid = budget/kids.size;
+
+		if (giftPrice > amountPerKid)
+			gifts.remove(gift);
+
+		if (giftTime > daysTillChrist)
+			gifts.remove(gift);
  	}
 }
