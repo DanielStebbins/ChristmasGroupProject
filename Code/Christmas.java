@@ -21,8 +21,8 @@ public class Christmas
 							   Integer.parseInt(fileReader1.nextLine()),
 							   Double.parseDouble(fileReader1.nextLine()),
 							   Integer.parseInt(fileReader1.nextLine())));
-			System.out.println(gifts.get(counter));
-			counter++;
+			//System.out.println(gifts.get(counter));
+			//counter++;
 		}
 
 		while(fileReader2.hasNextLine())
@@ -32,8 +32,8 @@ public class Christmas
 			int firstComma = current.indexOf(",");
 			String name = current.substring(0, firstComma);
 
-			int secondComma = current.lastIndexOf(".");
-			String niceness = current.substring(firstComma, secondComma);
+			int secondComma = current.lastIndexOf(",");
+			String niceness = current.substring(firstComma + 2, secondComma);
 
 			boolean nice = false;
 			if(niceness.equals("nice"))
@@ -41,7 +41,11 @@ public class Christmas
 			else
 				nice = false;
 
-			int age = Integer.parseInt(current.substring(secondComma));
+			int age = Integer.parseInt(current.substring(secondComma + 2));
+
+			kids.add(new Kids(name, nice, age));
+			System.out.println(kids.get(counter));
+			counter++;
 		}
 
 		System.out.println("How many days till Christmas?");
