@@ -7,7 +7,9 @@ public class Christmas
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
+		ArrayList<Gift> currentGifts = new ArrayList<Gift>();
 		ArrayList<Kids> kids = new ArrayList<Kids>();
+
 		Scanner reader = new Scanner(System.in);
 		Scanner fileReader1 = new Scanner(new File("Gifts.txt"));
 		Scanner fileReader2 = new Scanner(new File("Kids.txt"));
@@ -21,8 +23,8 @@ public class Christmas
 							   Integer.parseInt(fileReader1.nextLine()),
 							   Double.parseDouble(fileReader1.nextLine()),
 							   Integer.parseInt(fileReader1.nextLine())));
-			//System.out.println(gifts.get(counter));
-			//counter++;
+			System.out.println(gifts.get(counter));
+			counter++;
 		}
 
 		while(fileReader2.hasNextLine())
@@ -44,11 +46,28 @@ public class Christmas
 			int age = Integer.parseInt(current.substring(secondComma + 2));
 
 			kids.add(new Kids(name, nice, age));
-			System.out.println(kids.get(counter));
-			counter++;
+			//System.out.println(kids.get(counter));
+			//counter++;
 		}
 
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
+
+ 		for(Kids a: kids)
+ 		{
+			currentGifts = gifts;
+			System.out.println(a);
+			int age = a.getAge();
+
+			for(Gift b: currentGifts)
+			{
+				if(age > b.getHighAge() || age < b.getLowAge())
+				{
+					currentGifts.remove();
+				}
+			}
+			System.out.println(currentGifts);
+
+		}
  	}
 }
