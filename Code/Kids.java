@@ -21,7 +21,7 @@ public class Kids
 		return behavior;
 	}
 
-	public int Age()
+	public int getAge()
 	{
 		return age;
 	}
