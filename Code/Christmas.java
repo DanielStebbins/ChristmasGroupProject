@@ -53,6 +53,25 @@ public class Christmas
 
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
+		
+		double amountPerKid = 0.00;
+
+		for(int x = 0; x <= kids.size(); x++)
+		{
+			if (kids.get(age) >= 15 && nice = false)
+				kids.remove(name);
+		}
+
+		amountPerKid = budget/kids.size();
+
+		for(int x = 0; x <= gifts.size; x++)
+		{
+			if (gifts.get(giftPrice) > amountPerKid)
+				gifts.remove(gift);
+
+			if (gifts.get(giftTime) > daysTillChrist)
+				gifts.remove(gift)
+		}
 
  		for(Kids a: kids)
  		{
@@ -71,9 +90,7 @@ public class Christmas
 
 		}
 
-		
 		System.out.println("What's your budget?");
 		budget = reader.nextDouble();
-
  	}
 }
