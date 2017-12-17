@@ -1,16 +1,16 @@
 public class Gift
 {
-	int lowAge, highAge, giftTime;
+	int lowAge, highAge, days;
 	double price;
 	String name;
 
-	public Gift(int a1, int a2, int s, double p, String n)
+	public Gift(String n, int a1, int a2, double p, int d)
 	{
+		name = n;
 		lowAge = a1;
 		highAge = a2;
-		giftTime = s;
 		price = p;
-		name = n;
+		days = d;
 	}
 
 	public int getLowAge()
@@ -23,14 +23,9 @@ public class Gift
 		return highAge;
 	}
 
-	public int getInStock()
+	public int getDays()
 	{
-		return giftTime;
-	}
-
-	public void setInStock(int s)
-	{
-		inStock = s;
+		return days;
 	}
 
 	public double getPrice()
@@ -41,5 +36,16 @@ public class Gift
 	public String getName()
 	{
 		return name;
+	}
+
+	public String toString()
+	{
+		String out = "Name: " + name;
+		out += "\nLow Age: " + lowAge;
+		out += "\nHigh Age: " + highAge;
+		out += "\nPrice: " + price;
+		out += "\nDays: " + days;
+
+		return out;
 	}
 }
