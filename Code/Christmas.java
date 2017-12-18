@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -17,20 +16,41 @@ public class Christmas
 		int counter = 0;
 		double budget = 0.00;
 
-		while(fileReader1.hasNextLine())
+		System.out.println("How many days till Christmas?");
+ 		daysTillChrist = reader.nextInt();
+
+ 		System.out.println("What's your budget?");
+		budget = reader.nextDouble();
+
+		gifts = giftReader(gifts, fileReader1);
+		kids = kidReader(kids, fileReader2);
+		kids = removeKids(kids);
+		gifts = removeGifts(kids, gifts, budget, daysTillChrist);
+
+
+ 	}
+
+ 	public static ArrayList<Gift> giftReader(ArrayList<Gift> g, Scanner r)
+ 	{
+		while(r.hasNextLine())
 		{
-			gifts.add(new Gift(fileReader1.nextLine(),
-							   Integer.parseInt(fileReader1.nextLine()),
-							   Integer.parseInt(fileReader1.nextLine()),
-							   Double.parseDouble(fileReader1.nextLine()),
-							   Integer.parseInt(fileReader1.nextLine())));
-			System.out.println(gifts.get(counter));
-			counter++;
+			g.add(new Gift(r.nextLine(),
+							    Integer.parseInt(r.nextLine()),
+								Integer.parseInt(r.nextLine()),
+								Double.parseDouble(r.nextLine()),
+								Integer.parseInt(r.nextLine())));
+			//System.out.println(gifts.get(counter));
+			//counter++;
 		}
 
-		while(fileReader2.hasNextLine())
+		return g;
+	}
+
+ 	public static ArrayList<Kids> kidReader(ArrayList<Kids> k, Scanner r)
+	{
+		while(r.hasNextLine())
 		{
-			String current = fileReader2.nextLine();
+			String current = r.nextLine();
 
 			int firstComma = current.indexOf(",");
 			String name = current.substring(0, firstComma);
@@ -46,36 +66,49 @@ public class Christmas
 
 			int age = Integer.parseInt(current.substring(secondComma + 2));
 
-			kids.add(new Kids(name, nice, age));
+			k.add(new Kids(name, nice, age));
 			//System.out.println(kids.get(counter));
 			//counter++;
+
 		}
 
-		System.out.println("How many days till Christmas?");
- 		daysTillChrist = reader.nextInt();
-		
+		return k;
+	}
+
+	public static ArrayList<Kids> removeKids(ArrayList<Kids> k)
+	{
+		for(int x = 0; x <= k.size(); x++)
+		{
+			if (k.get(x).getAge() >= 15 && k.get(x).getBehavior() == false)
+				k.remove(x);
+		}
+
+		return k;
+	}
+
+	public static ArrayList<Gift> removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d)
+	{
 		double amountPerKid = 0.00;
+		amountPerKid = b/k.size();
 
-		for(int x = 0; x <= kids.size(); x++)
+		for(int x = 0; x <= g.size(); x++)
 		{
-			if (kids.get(age) >= 15 && nice = false)
-				kids.remove(name);
+			if (g.get(x).getPrice() > amountPerKid)
+				g.remove(x);
+
+			if (g.get(x).getDays() > d)
+				g.remove(x);
 		}
 
-		amountPerKid = budget/kids.size();
+		return g;
+	}
 
-		for(int x = 0; x <= gifts.size; x++)
+	public static Gift kidGifts(ArrayList<Kids> k, ArrayList<Gift> g)
+	{
+		for(Kids a: k)
 		{
-			if (gifts.get(giftPrice) > amountPerKid)
-				gifts.remove(gift);
+			ArrayList<Gift> currentGifts = g;
 
-			if (gifts.get(giftTime) > daysTillChrist)
-				gifts.remove(gift)
-		}
-
- 		for(Kids a: kids)
- 		{
-			currentGifts = gifts;
 			System.out.println(a);
 			int age = a.getAge();
 
@@ -83,14 +116,14 @@ public class Christmas
 			{
 				if(age > b.getHighAge() || age < b.getLowAge())
 				{
-					currentGifts.remove();
+					currentGifts.remove(b);
 				}
 			}
-			System.out.println(currentGifts);
 
+			System.out.println(currentGifts);
 		}
 
-		System.out.println("What's your budget?");
-		budget = reader.nextDouble();
- 	}
+		return gift;
+	}
 }
+
