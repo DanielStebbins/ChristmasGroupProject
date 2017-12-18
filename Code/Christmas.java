@@ -99,12 +99,14 @@ public class Christmas
 		range = amountPerKid / .2;
 		
 		double amountPerKidLow = amountPerKid - range;
+		int i = 0;
 		while(i != kids.size)
 		{
 			int number;
 			Random rand = new Random();
 
 			number = rand.nextInt(currentGifts.size);
+			i++;
 		}
  	}
 }
