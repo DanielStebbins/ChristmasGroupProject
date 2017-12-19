@@ -11,12 +11,12 @@ public class Kids
 		age = a;
 	}
 
-	public String GetName()
+	public String getName()
 	{
 		return name;
 	}
 
-	public boolean GetBehavior()
+	public boolean getBehavior()
 	{
 		return behavior;
 	}
