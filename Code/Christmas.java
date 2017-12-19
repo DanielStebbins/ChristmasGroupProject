@@ -2,6 +2,7 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 public class Christmas
 {
 	public static void main(String[] args) throws FileNotFoundException
@@ -54,6 +55,9 @@ public class Christmas
 		System.out.println("How many days till Christmas?");
  		daysTillChrist = reader.nextInt();
 		
+		System.out.println("What's your budget?");
+		budget = reader.nextDouble();
+		
 		double amountPerKid = 0.00;
 
 		for(int x = 0; x <= kids.size(); x++)
@@ -89,8 +93,20 @@ public class Christmas
 			System.out.println(currentGifts);
 
 		}
+		
+		double range = 0.0;
+		
+		range = amountPerKid / .2;
+		
+		double amountPerKidLow = amountPerKid - range;
+		int i = 0;
+		while(i != kids.size)
+		{
+			int number;
+			Random rand = new Random();
 
-		System.out.println("What's your budget?");
-		budget = reader.nextDouble();
+			number = rand.nextInt(currentGifts.size);
+			i++;
+		}
  	}
 }
