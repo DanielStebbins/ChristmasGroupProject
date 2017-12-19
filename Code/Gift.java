@@ -1,3 +1,9 @@
+/*
+Chad Scies, Luke Bowman, Daniel Stebbins
+This project is our own work, C.S., L.B., D.S.
+This is the class to hold values for the gift file.
+This class was made by Daniel only.
+*/
 public class Gift
 {
 	int lowAge, highAge, days;

@@ -1,3 +1,8 @@
+/*
+Chad Scies, Luke Bowman, Daniel Stebbins
+This project is our own work, C.S., L.B., D.S.
+This is the class to hold values for the kids file.
+*/
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -6,13 +11,23 @@ public class Christmas
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		//Daniel - ArrayLists and FileIO.
+		//Raw gift file input.
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
+
+		//Copy of the gift list to be narrowed down for each kid.
 		ArrayList<Gift> currentGifts = new ArrayList<Gift>();
+
+		//Final gifts (Parallel with the kids array).
+		ArrayList<Gift> finalGifts = new ArrayList<Gift>();
+
+		//Raw kids file input.
 		ArrayList<Kids> kids = new ArrayList<Kids>();
 
+		//Declaraing scanner
 		Scanner reader = new Scanner(System.in);
-		Scanner fileReader1 = new Scanner(new File("Gifts.txt"));
-		Scanner fileReader2 = new Scanner(new File("Kids.txt"));
+
+		//Chad - User input
 		int daysTillChrist;
 		int counter = 0;
 		double budget = 0.00;
@@ -23,10 +38,11 @@ public class Christmas
  		System.out.println("What's your budget?");
 		budget = reader.nextDouble();
 
-		gifts = giftReader(gifts, fileReader1);
+		//Daniel - Put things into methods
+		gifts = giftReader(gifts);
 		System.out.println(gifts);
 
-		kids = kidReader(kids, fileReader2);
+		kids = kidReader(kids);
 		System.out.println(kids);
 
 		kids = removeKids(kids);
@@ -36,27 +52,30 @@ public class Christmas
 		System.out.println(gifts);
  	}
 
- 	public static ArrayList<Gift> giftReader(ArrayList<Gift> g, Scanner r)
+	//Daniel - reading in gifts (Takes gift ArrayList and returns it full).
+ 	public static ArrayList<Gift> giftReader(ArrayList<Gift> g)
  	{
-		while(r.hasNextLine())
+		Scanner fileReader1 = new Scanner(new File("Gifts.txt"));
+		while(fileReader1.hasNextLine())
 		{
-			g.add(new Gift(r.nextLine(),
-							    Integer.parseInt(r.nextLine()),
-								Integer.parseInt(r.nextLine()),
-								Double.parseDouble(r.nextLine()),
-								Integer.parseInt(r.nextLine())));
-			//System.out.println(gifts.get(counter));
-			//counter++;
+			//Super dumb way of circumvent the .nextInt line problem.
+			g.add(new Gift(fileReader1.nextLine(),
+							    Integer.parseInt(fileReader1.nextLine()),
+								Integer.parseInt(fileReader1.nextLine()),
+								Double.parseDouble(fileReader1.nextLine()),
+								Integer.parseInt(fileReader1.nextLine())));
 		}
 
 		return g;
 	}
 
- 	public static ArrayList<Kids> kidReader(ArrayList<Kids> k, Scanner r)
+	//Daniel - reading in kids (Takes kids ArrayList and returns it full).
+ 	public static ArrayList<Kids> kidReader(ArrayList<Kids> k)
 	{
-		while(r.hasNextLine())
+		Scanner fileReader2 = new Scanner(new File("Kids.txt"));
+		while(fileReader2.hasNextLine())
 		{
-			String current = r.nextLine();
+			String current = fileReader2.nextLine();
 
 			int firstComma = current.indexOf(",");
 			String name = current.substring(0, firstComma);
@@ -80,6 +99,7 @@ public class Christmas
 		return k;
 	}
 
+	//Chad and Luke - remove kids based on age and behavior
 	public static ArrayList<Kids> removeKids(ArrayList<Kids> k)
 	{
 		for(int x = 0; x < k.size(); x++)
@@ -91,6 +111,7 @@ public class Christmas
 		return k;
 	}
 
+	//Chad and Luke - removes gifts based on price and days to build
 	public static ArrayList<Gift> removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d)
 	{
 		double amountPerKid = b/k.size();
@@ -106,6 +127,7 @@ public class Christmas
 		return g;
 	}
 
+	//Daniel - narrows down gifts for each kid based on age range.
 	public static Gift kidGifts(ArrayList<Kids> k, ArrayList<Gift> g)
 	{
 		for(Kids a: k)
@@ -129,6 +151,7 @@ public class Christmas
     	return gift;
 	}
 
+	//Chad - Picks a random gift from the list of gifts that can be given to one kid.
 	public static Gift randGift(ArrayList<Kids> k, ArrayList<Gift> cG)
 	{
 		Random rand = new Random();
