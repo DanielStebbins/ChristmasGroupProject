@@ -24,23 +24,16 @@ public class Christmas
 		budget = reader.nextDouble();
 
 		gifts = giftReader(gifts, fileReader1);
+		System.out.println(gifts);
+
 		kids = kidReader(kids, fileReader2);
+		System.out.println(kids);
+
 		kids = removeKids(kids);
+		System.out.println(kids);
+
 		gifts = removeGifts(kids, gifts, budget, daysTillChrist);
-    
-    double range = 0.0;
-		double amountPerKid = 0.00;
-		range = amountPerKid / .2;
-		
-		double amountPerKidLow = amountPerKid - range;
-		int i = 0;
-		while(i != kids.size)
-		{
-			int number;
-			Random rand = new Random();
-      	number = rand.nextInt(currentGifts.size);
-			i++;
-		}
+		System.out.println(gifts);
  	}
 
  	public static ArrayList<Gift> giftReader(ArrayList<Gift> g, Scanner r)
@@ -89,7 +82,7 @@ public class Christmas
 
 	public static ArrayList<Kids> removeKids(ArrayList<Kids> k)
 	{
-		for(int x = 0; x <= k.size(); x++)
+		for(int x = 0; x < k.size(); x++)
 		{
 			if (k.get(x).getAge() >= 15 && k.get(x).getBehavior() == false)
 				k.remove(x);
@@ -100,15 +93,13 @@ public class Christmas
 
 	public static ArrayList<Gift> removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d)
 	{
-		double amountPerKid = 0.00;
-		amountPerKid = b/k.size();
+		double amountPerKid = b/k.size();
+		double range = amountPerKid / .2;
+		double amountPerKidLow = amountPerKid - range;
 
 		for(int x = 0; x <= g.size(); x++)
 		{
-			if (g.get(x).getPrice() > amountPerKid)
-				g.remove(x);
-
-			if (g.get(x).getDays() > d)
+			if (g.get(x).getPrice() > amountPerKid || g.get(x).getPrice() < amountPerKidLow || g.get(x).getDays() > d)
 				g.remove(x);
 		}
 
@@ -134,7 +125,14 @@ public class Christmas
 
 			System.out.println(currentGifts);
 		}
-    return gift;
+    	Gift gift = new Gift("Placeholder", 1, 2, 1.99, 1);
+    	return gift;
+	}
+
+	public static Gift randGift(ArrayList<Kids> k, ArrayList<Gift> cG)
+	{
+		Random rand = new Random();
+		int number = rand.nextInt(cG.size());
+		return cG.get(number);
 	}
 }
-
