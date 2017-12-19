@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 public class Christmas
 {
 	public static void main(String[] args) throws FileNotFoundException
@@ -26,8 +27,20 @@ public class Christmas
 		kids = kidReader(kids, fileReader2);
 		kids = removeKids(kids);
 		gifts = removeGifts(kids, gifts, budget, daysTillChrist);
-
-
+    
+    double range = 0.0;
+		double amountPerKid = 0.00;
+		range = amountPerKid / .2;
+		
+		double amountPerKidLow = amountPerKid - range;
+		int i = 0;
+		while(i != kids.size)
+		{
+			int number;
+			Random rand = new Random();
+      	number = rand.nextInt(currentGifts.size);
+			i++;
+		}
  	}
 
  	public static ArrayList<Gift> giftReader(ArrayList<Gift> g, Scanner r)
@@ -71,7 +84,6 @@ public class Christmas
 			//counter++;
 
 		}
-
 		return k;
 	}
 
@@ -122,8 +134,7 @@ public class Christmas
 
 			System.out.println(currentGifts);
 		}
-
-		return gift;
+    return gift;
 	}
 }
 
