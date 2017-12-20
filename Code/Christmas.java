@@ -38,22 +38,34 @@ public class Christmas
  		System.out.println("What's your budget?");
 		budget = reader.nextDouble();
 
+
+
 		//Daniel - Put things into methods
-		gifts = giftReader(gifts);
+		giftReader(gifts);
 		System.out.println(gifts);
 
-		kids = kidReader(kids);
+		kidReader(kids);
 		System.out.println(kids);
 
-		kids = removeKids(kids);
+		double amountPerKid = budget/kids.size();
+
+		removeKids(kids);
 		System.out.println(kids);
 
-		gifts = removeGifts(kids, gifts, budget, daysTillChrist);
-		System.out.println(gifts);
+		System.out.println(amountPerKid);
+		if(amountPerKid < 4.99 || daysTillChrist < 2)
+		{
+			System.out.println("NO GIFTS!");
+		}
+		else
+		{
+			removeGifts(kids, gifts, budget, daysTillChrist, amountPerKid);
+			System.out.println(gifts);
+		}
  	}
 
 	//Daniel - reading in gifts (Takes gift ArrayList and returns it full).
- 	public static ArrayList<Gift> giftReader(ArrayList<Gift> g)
+ 	public static void giftReader(ArrayList<Gift> g) throws FileNotFoundException
  	{
 		Scanner fileReader1 = new Scanner(new File("Gifts.txt"));
 		while(fileReader1.hasNextLine())
@@ -65,12 +77,10 @@ public class Christmas
 								Double.parseDouble(fileReader1.nextLine()),
 								Integer.parseInt(fileReader1.nextLine())));
 		}
-
-		return g;
 	}
 
 	//Daniel - reading in kids (Takes kids ArrayList and returns it full).
- 	public static ArrayList<Kids> kidReader(ArrayList<Kids> k)
+ 	public static void kidReader(ArrayList<Kids> k) throws FileNotFoundException
 	{
 		Scanner fileReader2 = new Scanner(new File("Kids.txt"));
 		while(fileReader2.hasNextLine())
@@ -96,35 +106,44 @@ public class Christmas
 			//counter++;
 
 		}
-		return k;
 	}
 
 	//Chad and Luke - remove kids based on age and behavior
-	public static ArrayList<Kids> removeKids(ArrayList<Kids> k)
+	public static void removeKids(ArrayList<Kids> k)
 	{
 		for(int x = 0; x < k.size(); x++)
 		{
 			if (k.get(x).getAge() >= 15 && k.get(x).getBehavior() == false)
 				k.remove(x);
 		}
-
-		return k;
 	}
 
 	//Chad and Luke - removes gifts based on price and days to build
-	public static ArrayList<Gift> removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d)
+	public static void removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d, double a)
 	{
-		double amountPerKid = b/k.size();
-		double range = amountPerKid / .2;
-		double amountPerKidLow = amountPerKid - range;
+		double range = a * .2;
+		double amountPerKidLow = a - range;
+		int loop = 0;
 
-		for(int x = 0; x <= g.size(); x++)
+		for(int i = 0; i < g.size(); i++)
 		{
-			if (g.get(x).getPrice() > amountPerKid || g.get(x).getPrice() < amountPerKidLow || g.get(x).getDays() > d)
-				g.remove(x);
+			System.out.println(g.get(i).getPrice());
+			if (g.get(i).getPrice() > a)
+			{
+				System.out.println("Removed " + g.get(i).getName());
+				g.remove(i);
+			}
+			else if(g.get(i).getPrice() < amountPerKidLow)
+			{
+				System.out.println("Removed " + g.get(i).getName());
+				g.remove(i);
+			}
+			else if(g.get(i).getDays() < d)
+			{
+				System.out.println("Removed " + g.get(i).getName());
+				g.remove(i);
+			}
 		}
-
-		return g;
 	}
 
 	//Daniel - narrows down gifts for each kid based on age range.
