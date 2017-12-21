@@ -49,7 +49,7 @@ public class Christmas
 		double amountPerKid = budget/kids.size();
 
 		System.out.println(amountPerKid);
-		if(amountPerKid < 4.99 || daysTillChrist < 2)
+		if(amountPerKid < 4.99 || daysTillChrist < 3)
 		{
 			System.out.println("NO GIFTS!");
 		}
@@ -57,6 +57,13 @@ public class Christmas
 		{
 			removeGifts(kids, gifts, budget, daysTillChrist, amountPerKid);
 			System.out.println(gifts);
+
+			kidGifts(kids, gifts, finalGifts);
+			for(int i = 0; i < kids.size(); i++)
+			{
+				System.out.println(kids.get(i).getName() + " gets " + finalGifts.get(i).getName());
+
+			}
 		}
  	}
 
@@ -98,20 +105,19 @@ public class Christmas
 			int age = Integer.parseInt(current.substring(secondComma + 2));
 
 			k.add(new Kids(name, nice, age));
-			//System.out.println(kids.get(counter));
-			//counter++;
-
 		}
 	}
 
 	//Chad and Luke - remove kids based on age and behavior
 	public static void removeKids(ArrayList<Kids> k)
 	{
-		for(int x = 0; x < k.size(); x++)
+		ArrayList<Kids> toRemove = new ArrayList<Kids>();
+		for(Kids x: k)
 		{
-			if (k.get(x).getAge() >= 15 && k.get(x).getBehavior() == false)
-				k.remove(x);
+			if (x.getAge() >= 15 && x.getBehavior() == false)
+				toRemove.add(x);
 		}
+		k.removeAll(toRemove);
 	}
 
 	//Chad and Luke - removes gifts based on price and days to build
@@ -140,12 +146,15 @@ public class Christmas
 	}
 
 	//Daniel - narrows down gifts for each kid based on age range.
-	public static Gift kidGifts(ArrayList<Kids> k, ArrayList<Gift> g)
+	public static void kidGifts(ArrayList<Kids> k, ArrayList<Gift> g, ArrayList<Gift> fG)
 	{
 		for(Kids a: k)
 		{
 			//Copy of the gift list to be narrowed down for each kid.
-			ArrayList<Gift> currentGifts = g;
+			ArrayList<Gift> currentGifts = new ArrayList<Gift>();
+			currentGifts.addAll(g);
+			System.out.println("TEST " + g);
+			ArrayList<Gift> toRemove = new ArrayList<Gift>();
 
 			System.out.println(a);
 			int age = a.getAge();
@@ -154,18 +163,17 @@ public class Christmas
 			{
 				if(age > b.getHighAge() || age < b.getLowAge())
 				{
-					currentGifts.remove(b);
+					toRemove.add(b);
 				}
 			}
-
+			currentGifts.removeAll(toRemove);
 			System.out.println(currentGifts);
+			fG.add(randGift(currentGifts));
 		}
-    	Gift gift = new Gift("Placeholder", 1, 2, 1.99, 1);
-    	return gift;
 	}
 
 	//Chad - Picks a random gift from the list of gifts that can be given to one kid.
-	public static Gift randGift(ArrayList<Kids> k, ArrayList<Gift> cG)
+	public static Gift randGift(ArrayList<Gift> cG)
 	{
 		Random rand = new Random();
 		int number = rand.nextInt(cG.size());
