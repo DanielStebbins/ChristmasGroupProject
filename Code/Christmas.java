@@ -1,3 +1,8 @@
+/*
+Chad Scies, Luke Bowman, Daniel Stebbins
+This project is our own work, C.S., L.B., D.S.
+This is the class to hold values for the kids file.
+*/
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
