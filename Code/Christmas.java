@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+
 public class Christmas
 {
 	public static void main(String[] args) throws FileNotFoundException
@@ -15,21 +16,17 @@ public class Christmas
 		//Raw gift file input.
 		ArrayList<Gift> gifts = new ArrayList<Gift>();
 
-		//Copy of the gift list to be narrowed down for each kid.
-		ArrayList<Gift> currentGifts = new ArrayList<Gift>();
-
 		//Final gifts (Parallel with the kids array).
 		ArrayList<Gift> finalGifts = new ArrayList<Gift>();
 
 		//Raw kids file input.
 		ArrayList<Kids> kids = new ArrayList<Kids>();
 
-		//Declaraing scanner
+		//Declaring scanner
 		Scanner reader = new Scanner(System.in);
 
 		//Chad - User input
 		int daysTillChrist;
-		int counter = 0;
 		double budget = 0.00;
 
 		System.out.println("How many days till Christmas?");
@@ -38,8 +35,6 @@ public class Christmas
  		System.out.println("What's your budget?");
 		budget = reader.nextDouble();
 
-
-
 		//Daniel - Put things into methods
 		giftReader(gifts);
 		System.out.println(gifts);
@@ -47,10 +42,11 @@ public class Christmas
 		kidReader(kids);
 		System.out.println(kids);
 
-		double amountPerKid = budget/kids.size();
-
 		removeKids(kids);
 		System.out.println(kids);
+
+		System.out.println(kids.size());
+		double amountPerKid = budget/kids.size();
 
 		System.out.println(amountPerKid);
 		if(amountPerKid < 4.99 || daysTillChrist < 2)
@@ -119,31 +115,47 @@ public class Christmas
 	}
 
 	//Chad and Luke - removes gifts based on price and days to build
+	//a = amountPerKid d = daysTillChrist b = budget
 	public static void removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d, double a)
 	{
-		double range = a * .2;
-		double amountPerKidLow = a - range;
-		int loop = 0;
+		double range = 0, amountPerKidLow = 0;
+		ArrayList<Gift> toRemove = new ArrayList<Gift>();
 
-		for(int i = 0; i < g.size(); i++)
+		if (a > 2500 && d >= 15)
 		{
-			System.out.println(g.get(i).getPrice());
-			if (g.get(i).getPrice() > a)
-			{
-				System.out.println("Removed " + g.get(i).getName());
-				g.remove(i);
-			}
-			else if(g.get(i).getPrice() < amountPerKidLow)
-			{
-				System.out.println("Removed " + g.get(i).getName());
-				g.remove(i);
-			}
-			else if(g.get(i).getDays() < d)
-			{
-				System.out.println("Removed " + g.get(i).getName());
-				g.remove(i);
-			}
+			a = 2500;
 		}
+
+		if (899.00 > a && d < 15 && d >= 9)
+		{
+			a = 899.00;
+		}
+
+		if (599.99 > a && d < 9 && d >=6)
+		{
+			a = 599.99;
+		}
+
+		range = a * .3;
+		amountPerKidLow = a - range;
+
+		for(Gift gift: g)
+		{
+
+			if (gift.getPrice() > a || gift.getPrice() < amountPerKidLow || gift.getDays() > d)
+			{
+				System.out.println("Removed " + gift.getName() + " Price of " + gift.getPrice());
+				toRemove.add(gift);
+			}
+			else
+			{
+				System.out.println("Keep " + gift.getName() + " " + gift.getPrice());
+			}
+
+
+		}
+
+		g.removeAll(toRemove);
 	}
 
 	//Daniel - narrows down gifts for each kid based on age range.
@@ -151,6 +163,7 @@ public class Christmas
 	{
 		for(Kids a: k)
 		{
+			//Copy of the gift list to be narrowed down for each kid.
 			ArrayList<Gift> currentGifts = g;
 
 			System.out.println(a);
