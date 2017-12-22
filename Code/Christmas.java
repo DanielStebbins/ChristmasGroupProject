@@ -142,6 +142,13 @@ public class Christmas
 		for(Gift gift: g)
 		{
 
+		range = a * .3;
+		amountPerKidLow = a - range;
+
+		for(Gift gift: g)
+		{
+
+
 			if (gift.getPrice() > a || gift.getPrice() < amountPerKidLow || gift.getDays() > d)
 			{
 				System.out.println("Removed " + gift.getName() + " Price of " + gift.getPrice());
