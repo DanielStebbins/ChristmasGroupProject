@@ -115,15 +115,39 @@ public class Christmas
 	}
 
 	//Chad and Luke - removes gifts based on price and days to build
+	//a = amountPerKid d = daysTillChrist b = budget
 	public static void removeGifts(ArrayList<Kids> k, ArrayList<Gift> g, double b, int d, double a)
 	{
 		double range = 0, amountPerKidLow = 0;
 		ArrayList<Gift> toRemove = new ArrayList<Gift>();
+
+		if (a > 2500 && d >= 15)
+		{
+			a = 2500;
+		}
+
+		if (899.00 > a && d < 15 && d >= 9)
+		{
+			a = 899.00;
+		}
+
+		if (599.99 > a && d < 9 && d >=6)
+		{
+			a = 599.99;
+		}
+
 		range = a * .3;
 		amountPerKidLow = a - range;
 
 		for(Gift gift: g)
 		{
+
+		range = a * .3;
+		amountPerKidLow = a - range;
+
+		for(Gift gift: g)
+		{
+
 
 			if (gift.getPrice() > a || gift.getPrice() < amountPerKidLow || gift.getDays() > d)
 			{
@@ -134,6 +158,8 @@ public class Christmas
 			{
 				System.out.println("Keep " + gift.getName() + " " + gift.getPrice());
 			}
+
+
 		}
 
 		g.removeAll(toRemove);
