@@ -37,15 +37,15 @@ public class Christmas
 
 		//Daniel - Put things into methods
 		giftReader(gifts);
-		System.out.println(gifts);
+		//System.out.println(gifts);
 
 		kidReader(kids);
-		System.out.println(kids);
+		//System.out.println(kids);
 
 		removeKids(kids);
-		System.out.println(kids);
+		//System.out.println(kids);
 
-		System.out.println(kids.size());
+		//System.out.println(kids.size());
 		double amountPerKid = budget/kids.size();
 
 		System.out.println(amountPerKid);
@@ -58,12 +58,12 @@ public class Christmas
 			removeGifts(kids, gifts, budget, daysTillChrist, amountPerKid);
 			System.out.println(gifts);
 
-			kidGifts(kids, gifts, finalGifts);
+			kidGifts(kids, gifts, finalGifts, budget);
 			for(int i = 0; i < kids.size(); i++)
 			{
 				System.out.println(kids.get(i).getName() + " gets " + finalGifts.get(i).getName());
-
 			}
+			checkPrice(finalGifts);
 		}
  	}
 
@@ -126,83 +126,114 @@ public class Christmas
 	{
 		double range = 0, amountPerKidLow = 0;
 		ArrayList<Gift> toRemove = new ArrayList<Gift>();
-
-		if (a > 2500 && d >= 15)
-		{
-			a = 2500;
-		}
-
-		if (899.00 > a && d < 15 && d >= 9)
-		{
-			a = 899.00;
-		}
-
-		if (599.99 > a && d < 9 && d >=6)
-		{
-			a = 599.99;
-		}
+		toRemove.addAll(g);
 
 		range = a * .3;
 		amountPerKidLow = a - range;
-
-		for(Gift gift: g)
+		
+		while(toRemove.size() >= g.size() - 2)
 		{
-
-		range = a * .3;
-		amountPerKidLow = a - range;
-
-		for(Gift gift: g)
-		{
-
-
-			if (gift.getPrice() > a || gift.getPrice() < amountPerKidLow || gift.getDays() > d)
+			System.out.println("Amount: " + a + "\t" + "Lowest: " + amountPerKidLow);
+			toRemove.clear();
+			for(Gift gift: g)
 			{
-				System.out.println("Removed " + gift.getName() + " Price of " + gift.getPrice());
-				toRemove.add(gift);
+				if (gift.getPrice() > a || gift.getPrice() < amountPerKidLow || gift.getDays() > d)
+				{
+					System.out.println("Removed " + gift.getName() + " Price of " + gift.getPrice());
+					toRemove.add(gift);
+				}
+				else
+				{
+					System.out.println("Keep " + gift.getName() + " " + gift.getPrice());
+				}
 			}
-			else
-			{
-				System.out.println("Keep " + gift.getName() + " " + gift.getPrice());
-			}
-
-
+			amountPerKidLow -= 10;
+			a += range;
 		}
-
+		
 		g.removeAll(toRemove);
 	}
 
 	//Daniel - narrows down gifts for each kid based on age range.
-	public static void kidGifts(ArrayList<Kids> k, ArrayList<Gift> g, ArrayList<Gift> fG)
+	public static void kidGifts(ArrayList<Kids> k, ArrayList<Gift> g, ArrayList<Gift> fG, double b)
 	{
+		int left = k.size();
 		for(Kids a: k)
 		{
 			//Copy of the gift list to be narrowed down for each kid.
 			ArrayList<Gift> currentGifts = new ArrayList<Gift>();
 			currentGifts.addAll(g);
-			System.out.println("TEST " + g);
 			ArrayList<Gift> toRemove = new ArrayList<Gift>();
 
 			System.out.println(a);
 			int age = a.getAge();
 
-			for(Gift b: currentGifts)
+			for(Gift c: currentGifts)
 			{
-				if(age > b.getHighAge() || age < b.getLowAge())
+				if(age > c.getHighAge() || age < c.getLowAge())
 				{
-					toRemove.add(b);
+					toRemove.add(c);
 				}
 			}
 			currentGifts.removeAll(toRemove);
 			System.out.println(currentGifts);
-			fG.add(randGift(currentGifts));
+			Gift temp = randGift(currentGifts, b, left);
+			fG.add(temp);
+			b -= temp.getPrice();
+			left--;
+			System.out.println("There are " + left + "kids left on the list and " + b + " dollars in the budget.");
 		}
 	}
 
 	//Chad - Picks a random gift from the list of gifts that can be given to one kid.
-	public static Gift randGift(ArrayList<Gift> cG)
+	public static Gift randGift(ArrayList<Gift> cG, double cB, int l)
 	{
-		Random rand = new Random();
-		int number = rand.nextInt(cG.size());
-		return cG.get(number);
+		double max = 0, min = 10000;
+		int maxIndex = 0, minIndex = 0;
+		for(int i = 0; i < cG.size(); i++)
+		{
+			if(cG.get(i).getPrice() > max)
+			{
+				max = cG.get(i).getPrice();
+				maxIndex = i;
+			}
+			if(cG.get(i).getPrice() < min)
+			{
+				min = cG.get(i).getPrice();
+				minIndex = i;
+			}
+		}
+		
+		System.out.println("The max for this group is: " + cG.get(maxIndex).getName());
+		System.out.println("The min for this group is: " + cG.get(minIndex).getName());
+		System.out.println("The average is: " + cB / l);
+		if(max  * .98 < cB / l)
+		{
+			System.out.println("Defulted to: " + cG.get(maxIndex).getName());
+			return cG.get(maxIndex);
+		}
+		else if(min * 1.4 > cB / l)
+		{
+			System.out.println("Defulted to: " + cG.get(minIndex).getName());
+			return cG.get(minIndex);
+		}
+		else 
+		{
+			System.out.println();
+			Random rand = new Random();
+			int number = rand.nextInt(cG.size());
+			return cG.get(number);
+		}
+	}
+	
+	public static void checkPrice(ArrayList<Gift> fG)
+	{
+		double total = 0;
+		
+		for(Gift g: fG)
+		{
+			total += g.getPrice();
+		}
+		System.out.println("I hope " + total + " is within your budget!");
 	}
 }
