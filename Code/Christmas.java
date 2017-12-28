@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class Christmas
 {
+	public static final String FILENAME = "List.txt";
+	
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		//Daniel - ArrayLists and FileIO.
@@ -64,6 +66,19 @@ public class Christmas
 				System.out.println(kids.get(i).getName() + " gets " + finalGifts.get(i).getName());
 			}
 			checkPrice(finalGifts);
+		}
+		
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter(List)))
+		{
+			for(int i = 0; i < kids.size(); i++)
+			{
+				String content = kids.get(i).getName() + " gets " + finalGifts.get(i).getName();
+				bw.write(content);
+			}
+			
+			System.out.println("Done");
+		}
+			
 		}
  	}
 
@@ -236,4 +251,6 @@ public class Christmas
 		}
 		System.out.println("I hope " + total + " is within your budget!");
 	}
+	
+	
 }
