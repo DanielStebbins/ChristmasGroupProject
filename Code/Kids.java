@@ -2,7 +2,7 @@
 Chad Scies, Luke Bowman, Daniel Stebbins
 This project is our own work, C.S., L.B., D.S.
 This is the class to hold values for the kids file.
-This class was made by Luke only, except the toString, which was Daniel.
+This class was made entirely by Luke, except the toString, which was Daniel.
 */
 public class Kids
 {
